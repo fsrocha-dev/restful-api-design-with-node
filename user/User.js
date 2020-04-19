@@ -9,7 +9,6 @@ const UserSchema = new Schema({
   password: String
 })
 
-UserSchema.set('toObject', { getters: true });
-UserSchema.set('toJSON', { getters: true });
+mongoose.model('User', UserSchema)
 
-module.exports = new mongoose.model('User', UserSchema)
+module.exports = mongoose.model('User')
