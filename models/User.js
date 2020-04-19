@@ -1,17 +1,15 @@
 const uuidv4 = require('uuid/v4')
 const mongoose = require('mongoose')
+const { Schema } = mongoose
 
-// Will add the UUID type to the Mongoose Schema types
-require('mongoose-uuid2')(mongoose)
-const UUID = mongoose.Types.UUID
-
-const UserSchema = new mongoose.Schema({
-  _uuid: { type: UUID, default: uuidv4 },
+const UserSchema = new Schema({
+  _uuid: { type: String, default: uuidv4() },
   name: String,
   email: String,
   password: String
 })
 
-mongoose.model('User', UserSchema)
+UserSchema.set('toObject', { getters: true });
+UserSchema.set('toJSON', { getters: true });
 
-module.exports = mongoose.model('User')
+module.exports = new mongoose.model('User', UserSchema)
